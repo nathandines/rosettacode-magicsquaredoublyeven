@@ -3,10 +3,9 @@ package main
 import (
 	"fmt"
 	"log"
-	"strings"
 )
 
-const dimensions int = 8
+const dimensions int = 32
 
 func setupMagicSquareData(d int) ([][]int, error) {
 	var output [][]int
@@ -30,22 +29,17 @@ func setupMagicSquareData(d int) ([][]int, error) {
 	return output, nil
 }
 
-func arrayItoa(input []int) []string {
-	var output []string
-	for _, i := range input {
-		output = append(output, fmt.Sprintf("%4d", i))
-	}
-	return output
-}
-
 func main() {
 	data, err := setupMagicSquareData(dimensions)
 	if err != nil {
 		log.Fatal(err)
 	}
 	magicConstant := (dimensions * (dimensions*dimensions + 1)) / 2
-	for _, row := range data {
-		fmt.Println(strings.Join(arrayItoa(row), " "))
+	for _, r := range data {
+		for _, c := range r {
+			fmt.Printf("%5d", c)
+		}
+		fmt.Println()
 	}
 	fmt.Printf("\nMagic Constant: %d\n", magicConstant)
 }
